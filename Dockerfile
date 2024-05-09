@@ -1,14 +1,15 @@
-# Use an official lightweight Nginx image as a parent image
-FROM nginx:alpine
+FROM php:7.4-apache
 
-# Set an environment variable for the flag
-ENV FLAG="CTF{secret_flag_here}"
+# Set the FLAG environment variable
+ENV FLAG=CTF_SDaT{YoFriend}
 
-# Copy static content from the host and place it in the Nginx server's root directory
-COPY . /usr/share/nginx/html
+RUN a2enmod rewrite
 
-# Expose port 2789
+COPY index.php /var/www/html/
+COPY .htaccess /var/www/html/
+COPY flag.php /var/www/html/
+COPY BlackBerry_Logo.png /var/www/html/
+COPY Phone.jpeg /var/www/html/
+
+# Expose the port
 EXPOSE 2789
-
-# Start Nginx and keep it running in the foreground
-CMD ["nginx", "-g", "daemon off;"]
